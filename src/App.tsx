@@ -19,7 +19,8 @@ const App: React.FC = () => {
             const array = new Uint32Array(wordCount);
             window.crypto.getRandomValues(array);
             const words = Array.from(array).map(num => wordlist[num % wordlist.length]);
-            setPassword(words.join(separator));
+            // Ensure no leading/trailing spaces in the result if not intended
+            setPassword(words.join(separator).trim());
             return;
         }
 
@@ -69,10 +70,36 @@ const App: React.FC = () => {
         generatePassword();
     }, [generatePassword]);
 
-    const handleCopy = () => {
-        navigator.clipboard.writeText(password);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+    const handleCopy = async () => {
+        if (!password) return;
+
+        try {
+            // Try modern API
+            await navigator.clipboard.writeText(password);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        } catch (err) {
+            // Fallback for non-secure contexts or older browsers
+            try {
+                const textArea = document.createElement("textarea");
+                textArea.value = password;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-9999px";
+                textArea.style.top = "0";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textArea);
+
+                if (successful) {
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                }
+            } catch (fallbackErr) {
+                console.error('Fallback copy failed', fallbackErr);
+            }
+        }
     };
 
     return (
@@ -206,7 +233,7 @@ const App: React.FC = () => {
             </main>
             <footer className="version-indicator">
                 <a href="https://github.com/FlyingT/sicher/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">
-                    v1.2.0 von TK
+                    v1.3.0 von TK
                 </a>
             </footer>
         </div>

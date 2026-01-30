@@ -2,6 +2,15 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei festgehalten.
 
+## [1.3.0] - 2026-01-31
+
+### Hinzugefügt
+- (Feature) Optisches Feedback (Haken & Grünfärbung) beim Kopieren des Passworts.
+
+### Behoben
+- (Fix) Kopieren-Button funktioniert nun auch in nicht-sicheren Umgebungen (Fallback-Logik).
+- (Fix) Unnötige Leerzeichen bei Passphrasen mit benutzerdefinierten Trennzeichen entfernt.
+
 ## [1.2.0] - 2026-01-31
 
 ### Hinzugefügt
