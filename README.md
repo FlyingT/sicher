@@ -34,8 +34,8 @@ version: '3.8'
 
 services:
   sicher:
+    container_name: sicher
     image: ghcr.io/flyingt/sicher:latest
-    container_name: sicher-app
     ports:
       - "8080:80"
     restart: unless-stopped
