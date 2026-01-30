@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Shield, Copy, RefreshCw, Check } from 'lucide-react';
+import { Lock, Copy, RefreshCw, Check } from 'lucide-react';
 
 const App: React.FC = () => {
     const [password, setPassword] = useState('');
@@ -82,8 +82,13 @@ const App: React.FC = () => {
         <div className="app-container">
             <aside className="sidebar">
                 <div className="sidebar-header">
-                    <Shield size={28} />
-                    <h1>Sicher?</h1>
+                    <div className="app-icon">
+                        <Lock size={20} color="white" strokeWidth={3} />
+                    </div>
+                    <div>
+                        <h1>Sicher?</h1>
+                        <p className="tagline">Einfacher, lokaler Kennwort und Passphrasen Generator</p>
+                    </div>
                 </div>
 
                 <div className="control-group">
@@ -157,7 +162,7 @@ const App: React.FC = () => {
             </main>
             <footer className="version-indicator">
                 <a href="https://github.com/FlyingT/sicher/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">
-                    v1.0.1 von TK
+                    v1.0.2 von TK
                 </a>
             </footer>
         </div>

@@ -1,56 +1,39 @@
 # Sicher?
 
-Ein einfacher, moderner und Docker-optimierter Passwort-Generator, der Wert auf Klarheit und Sicherheit legt.
+Ein einfacher, moderner und Docker-optimierter Kennwort und Passphrasen Generator, der Wert auf Klarheit und Sicherheit legt.
 
-![]()
+## Features
 
-## Funktionen
-
-- **Einfache Steuerung**: Schalte Großbuchstaben, Zahlen und Sonderzeichen flexibel ein oder aus.
-- **Vermeidung von Verwechslungen**: Option zum Ausschluss von optisch ähnlichen Zeichen:
-  - `0` (Null) und `O` (Buchstabe O)
-  - `1` (Eins), `l` (kleines L) und `I` (großes i)
-  - `5` (Fünf) und `S` (Buchstabe S)
-  - `2` (Zwei) und `Z` (Buchstabe Z)
-  - `vv` (doppeltes v) und `w` (Buchstabe w)
-  - `rn` (r und n) und `m` (Buchstabe m)
-  - `|` (Pipe), `1` und `l`
-  - `` ` `` (Backtick) und `'` (einfaches Anführungszeichen)
-- **Flexibler Slider**: Wähle eine Passwortlänge zwischen 8 und 32 Zeichen.
-- **Sofortige Generierung**: Passwörter werden instant bei jeder Einstellungsänderung generiert.
-- **Kopieren mit einem Klick**: Schnelles Kopieren des generierten Passworts in die Zwischenablage.
-- **Modernes Design**: Dunkle Akzente, klare Typografie und ein responsives Interface.
-
-## Deployment mit Docker
-
-Die Anwendung ist für den Einsatz hinter einem Reverse Proxy (z.B. Nginx Proxy Manager oder Traefik) im Intranet vorkonfiguriert.
-
-### Mit Docker Compose (Empfohlen)
-
-Erstelle eine `docker-compose.yml` mit folgendem Inhalt oder verwende die mitgelieferte Datei:
-
-```yaml
-version: '3.8'
-
-services:
-  sicher:
-    container_name: sicher
-    image: ghcr.io/flyingt/sicher:latest
-    ports:
-      - "8080:80"
-    restart: unless-stopped
-```
-
-Starte den Container:
-```bash
-docker compose up -d
-```
-
-Die App ist dann unter [http://localhost:8080](http://localhost:8080) erreichbar.
+- **Individuelle Generierung**: Schalter für Großbuchstaben, Zahlen und Sonderzeichen.
+- **Längen-Kontrolle**: Stufenloser Slider für Kennwortlängen zwischen 8 und 32 Zeichen.
+- **Intelligenter Ausschluss**: Optionale Logik zur Vermeidung verwechselbarer Zeichenpaare und Sequenzen:
+  - `0` (Null) vs. `O` (O)
+  - `1` (Eins) vs. `l` (kleines L) vs. `I` (großes i) vs. `|` (Pipe)
+  - `5` (Fünf) vs. `S` (S)
+  - `2` (Zwei) vs. `Z` (Z)
+  - `vv` (doppeltes v) vs. `w` (w)
+  - `rn` (r & n) vs. `m` (m)
+  - `` ` `` (Backtick) vs. `'` (einfaches Anführungszeichen)
+- **Privatsphäre**: Vollständig lokale Generierung im Browser – es werden keine Daten an Server übertragen.
+- **Kopieren mit einem Klick**: Schnelles Kopieren des generierten Passworts.
+- **Versionsverlauf**: Transparente Änderungshistorie via `CHANGELOG.md`.
 
 ## Tech Stack
 
 - **Frontend**: React 18, TypeScript, Vite
-- **Styling**: Modernes Vanilla CSS (Inter & Outfit Fonts)
-- **CI/CD**: GitHub Actions (Build & Push to GHCR)
-- **Container**: Docker (Alpine-based Nginx)
+- **Icon-Set**: Lucide React
+- **Container**: Docker & Nginx (Alpine)
+
+## Deployment
+
+### Docker
+```bash
+docker-compose up -d
+```
+Das Tool ist anschließend unter `http://localhost:8080` (Standard-Port) erreichbar.
+
+## Entwicklung
+
+1. Abhängigkeiten installieren: `npm install`
+2. Dev-Server starten: `npm run dev`
+3. Build erstellen: `npm run build`
