@@ -4,6 +4,11 @@ Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei festgehalten
 
 Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/) und dieses Projekt verwendet eine benutzerdefinierte Versionierung: `v1.[Feature].[Fix]`.
 
+## [1.0.3] - 2026-01-30
+
+### Hinzugefügt
+- (Fix) Docker-Compose Code-Beispiel in der `README.md` ergänzt.
+
 ## [1.0.2] - 2026-01-30
 
 ### Hinzugefügt
