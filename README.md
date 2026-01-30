@@ -1,8 +1,8 @@
 # Sicher! 🛡️
 
-Ein einfacher, moderner und Docker-optimierter Passwort-Generator, der Wert auf Klarheit und Sicherheit legt. Das Design orientiert sich an meinen Projekten [Belegt](https://github.com/FlyingT/belegt) und [Mosaik](https://github.com/FlyingT/mosaik).
+Ein einfacher, moderner und Docker-optimierter Passwort-Generator, der Wert auf Klarheit und Sicherheit legt.
 
-![Sicher Desktop Ansicht](C:/Users/Tim/.gemini/antigravity/brain/7a651b3d-a703-4224-8767-f2296f52b9d3/uploaded_media_1_1769810240760.png)
+![]()
 
 ## Funktionen
 
@@ -54,7 +54,3 @@ Die App ist dann unter [http://localhost:8080](http://localhost:8080) erreichbar
 - **Styling**: Modernes Vanilla CSS (Inter & Outfit Fonts)
 - **CI/CD**: GitHub Actions (Build & Push to GHCR)
 - **Container**: Docker (Alpine-based Nginx)
-
----
-
-Entwickelt für maximale Einfachheit und Sicherheit im Alltag.
