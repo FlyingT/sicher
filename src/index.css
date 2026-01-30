@@ -317,6 +317,46 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 /* Version Indicator */
+/* Strength Indicator */
+.strength-container {
+  margin-top: 16px;
+}
+
+.strength-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.strength-meter {
+  height: 4px;
+  display: flex;
+  gap: 4px;
+  background: transparent;
+}
+
+.strength-segment {
+  flex: 1;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 2px;
+  transition: background-color 0.3s ease;
+}
+
+.strength-segment.active.low {
+  background-color: #ff3b30;
+}
+
+.strength-segment.active.medium {
+  background-color: #ffcc00;
+}
+
+.strength-segment.active.high {
+  background-color: #34c759;
+}
+
 .version-indicator {
   position: absolute;
   bottom: 12px;

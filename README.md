@@ -12,6 +12,7 @@ Ein einfacher, moderner und Docker-optimierter Kennwort und Passphrasen Generato
   - **Passphrase**: Auswahl der Wortanzahl (3-8) und benutzerdefiniertes Trennzeichen.
   - **Wörterliste**: Passphrasen werden aus einer kuratierten Liste von über 7.700 deutschen Wörtern generiert.
 - **Kopieren mit Feedback**: Ein-Klick-Kopieren mit visueller Bestätigung (Haken & Grünfärbung).
+- **Stärke-Anzeige**: Integriertes Entropy Meter, das die Sicherheit von Kennwörtern und Passphrasen visualisiert.
 
 ## Deployment
 

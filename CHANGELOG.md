@@ -2,6 +2,14 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei festgehalten.
 
+## [1.4.0] - 2026-01-31
+
+### Hinzugefügt
+- (Feature) Stärke-Indikator (Entropy Meter): Visualisierung der Passwortstärke basierend auf Entropie-Berechnung.
+
+### Behoben
+- (Fix) Platzhalter-Text im Trennzeichen-Feld entfernt für ein saubereres UI.
+
 ## [1.3.1] - 2026-01-31
 
 ### Behoben

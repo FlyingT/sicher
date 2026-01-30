@@ -13,6 +13,36 @@ const App: React.FC = () => {
     const [includeSymbols, setIncludeSymbols] = useState(true);
     const [excludeConfusing, setExcludeConfusing] = useState(true);
     const [copied, setCopied] = useState(false);
+    const [strength, setStrength] = useState<{ score: number; label: string }>({ score: 0, label: 'Sehr schwach' });
+
+    const calculateStrength = useCallback(() => {
+        if (!password) {
+            setStrength({ score: 0, label: 'Sehr schwach' });
+            return;
+        }
+
+        let entropy = 0;
+        if (mode === 'passphrase') {
+            // Each word from a 7700 word list adds ~12.9 bits of entropy
+            entropy = wordCount * Math.log2(wordlist.length);
+        } else {
+            let poolSize = 26; // lowercase
+            if (includeUppercase) poolSize += 26;
+            if (includeNumbers) poolSize += 10;
+            if (includeSymbols) poolSize += 30;
+            if (excludeConfusing) poolSize -= 10;
+            entropy = length * Math.log2(poolSize);
+        }
+
+        if (entropy < 40) setStrength({ score: 1, label: 'Schwach' });
+        else if (entropy < 60) setStrength({ score: 2, label: 'Mittel' });
+        else if (entropy < 80) setStrength({ score: 3, label: 'Sicher' });
+        else setStrength({ score: 4, label: 'Sehr sicher' });
+    }, [password, mode, length, wordCount, includeUppercase, includeNumbers, includeSymbols, excludeConfusing]);
+
+    useEffect(() => {
+        calculateStrength();
+    }, [calculateStrength]);
 
     const generatePassword = useCallback(() => {
         if (mode === 'passphrase') {
@@ -179,6 +209,23 @@ const App: React.FC = () => {
                                 onChange={e => setLength(parseInt(e.target.value))}
                             />
                         </div>
+
+                        <div className="strength-container" style={{ marginTop: '24px' }}>
+                            <div className="strength-label">
+                                <span>Stärke</span>
+                                <span>{strength.label}</span>
+                            </div>
+                            <div className="strength-meter">
+                                {[1, 2, 3, 4].map(s => (
+                                    <div
+                                        key={s}
+                                        className={`strength-segment ${strength.score >= s ? 'active' : ''} ${strength.score <= 1 ? 'low' :
+                                                strength.score <= 2 ? 'medium' : 'high'
+                                            }`}
+                                    />
+                                ))}
+                            </div>
+                        </div>
                     </>
                 ) : (
                     <div className="control-group">
@@ -211,9 +258,26 @@ const App: React.FC = () => {
                                         setSeparator(val);
                                     }
                                 }}
-                                placeholder="Leerzeichen"
+                                placeholder=""
                                 maxLength={5}
                             />
+                        </div>
+
+                        <div className="strength-container">
+                            <div className="strength-label">
+                                <span>Stärke</span>
+                                <span>{strength.label}</span>
+                            </div>
+                            <div className="strength-meter">
+                                {[1, 2, 3, 4].map(s => (
+                                    <div
+                                        key={s}
+                                        className={`strength-segment ${strength.score >= s ? 'active' : ''} ${strength.score <= 1 ? 'low' :
+                                                strength.score <= 2 ? 'medium' : 'high'
+                                            }`}
+                                    />
+                                ))}
+                            </div>
                         </div>
                     </div>
                 )}
@@ -241,7 +305,7 @@ const App: React.FC = () => {
             </main>
             <footer className="version-indicator">
                 <a href="https://github.com/FlyingT/sicher/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">
-                    v1.3.1 von TK
+                    v1.4.0 von TK
                 </a>
             </footer>
         </div>
