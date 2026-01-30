@@ -240,7 +240,7 @@ input[type=range]::-webkit-slider-thumb {
 /* Version Indicator */
 .version-indicator {
   position: absolute;
-  bottom: 24px;
+  bottom: 12px;
   right: 24px;
 }
 
@@ -263,7 +263,7 @@ input[type=range]::-webkit-slider-thumb {
   grid-template-columns: 350px 1fr;
   gap: 24px;
   background: var(--bg-card);
-  padding: 24px;
+  padding: 24px 24px 36px 24px;
   border-radius: 20px;
   box-shadow: var(--shadow);
   position: relative;

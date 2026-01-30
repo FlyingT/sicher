@@ -157,7 +157,7 @@ const App: React.FC = () => {
             </main>
             <footer className="version-indicator">
                 <a href="https://github.com/FlyingT/sicher/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">
-                    v1.0.0 von TK
+                    v1.0.1 von TK
                 </a>
             </footer>
         </div>
