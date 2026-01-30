@@ -4,13 +4,9 @@ Ein einfacher, moderner und Docker-optimierter Kennwort und Passphrasen Generato
 
 ## Features
 
-- **Privatsphäre**: Vollständig lokale Generierung im Browser – es werden keine Daten an Server übertragen.
-- **Kennwort & Passphrase**: Wähle zwischen klassischen Kennwörtern oder einprägsamen Passphrasen.
-- **Intelligenter Ausschluss**: Optionale Logik zur Vermeidung verwechselbarer Zeichenpaare und Sequenzen
-- **Individuelle Kontrolle**:
-  - **Kennwort**: Schalter für Großbuchstaben, Zahlen, Sonderzeichen und Länge (8-32).
-  - **Passphrase**: Auswahl der Wortanzahl (3-8) und benutzerdefiniertes Trennzeichen.
-  - **Wörterliste**: Passphrasen werden aus einer kuratierten Liste von über 7.700 deutschen Wörtern generiert.
+- **Offline QR-Code**: Generiere einen QR-Code für dein Passwort direkt lokal in der App.
+- **Entropie-Meter**: Visuelle Anzeige der Passwortstärke in Echtzeit.
+- **Passphrasen-Modus**: Generiere sichere Sätze aus einer Liste von über 7.700 Wörtern.
 - **Kopieren mit Feedback**: Ein-Klick-Kopieren mit visueller Bestätigung (Haken & Grünfärbung).
 - **Stärke-Anzeige**: Integriertes Entropy Meter, das die Sicherheit von Kennwörtern und Passphrasen visualisiert.
 

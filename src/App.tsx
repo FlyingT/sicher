@@ -1,19 +1,22 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Lock, Copy, RefreshCw, Check } from 'lucide-react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { Lock, Copy, RefreshCw, Check, QrCode as QrIcon } from 'lucide-react';
 import { wordlist } from './words';
+import { qrcodegen } from './qrcodegen';
 
 const App: React.FC = () => {
     const [mode, setMode] = useState<'password' | 'passphrase'>('password');
-    const [password, setPassword] = useState('');
     const [length, setLength] = useState(16);
     const [wordCount, setWordCount] = useState(4);
     const [separator, setSeparator] = useState(' ');
+    const [password, setPassword] = useState('');
     const [includeUppercase, setIncludeUppercase] = useState(true);
     const [includeNumbers, setIncludeNumbers] = useState(true);
     const [includeSymbols, setIncludeSymbols] = useState(true);
     const [excludeConfusing, setExcludeConfusing] = useState(true);
     const [copied, setCopied] = useState(false);
+    const [showQr, setShowQr] = useState(false);
     const [strength, setStrength] = useState<{ score: number; label: string }>({ score: 0, label: 'Sehr schwach' });
+    const qrCanvasRef = useRef<HTMLCanvasElement>(null);
 
     const calculateStrength = useCallback(() => {
         if (!password) {
@@ -44,6 +47,30 @@ const App: React.FC = () => {
         calculateStrength();
     }, [calculateStrength]);
 
+    useEffect(() => {
+        if (showQr && qrCanvasRef.current && password) {
+            const qr = qrcodegen.QrCode.encodeText(password, qrcodegen.QrCode.Ecc.MEDIUM);
+            const canvas = qrCanvasRef.current;
+            const scale = 8;
+            const size = qr.size * scale;
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+                ctx.fillStyle = "#FFFFFF";
+                ctx.fillRect(0, 0, size, size);
+                ctx.fillStyle = "#000000";
+                for (let y = 0; y < qr.size; y++) {
+                    for (let x = 0; x < qr.size; x++) {
+                        if (qr.getModule(x, y)) {
+                            ctx.fillRect(x * scale, y * scale, scale, scale);
+                        }
+                    }
+                }
+            }
+        }
+    }, [showQr, password]);
+
     const generatePassword = useCallback(() => {
         if (mode === 'passphrase') {
             const array = new Uint32Array(wordCount);
@@ -57,7 +84,7 @@ const App: React.FC = () => {
         let charset = 'abcdefghijklmnopqrstuvwxyz';
         const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const numberChars = '0123456789';
-        const symbolChars = '!@#$%^&*()_+~`|}{[]\:;?><,./-=';
+        const symbolChars = '!@#$%^&*()_+~`|}{[]\\:;?><,./-=';
 
         if (includeUppercase) charset += uppercaseChars;
         if (includeNumbers) charset += numberChars;
@@ -66,7 +93,6 @@ const App: React.FC = () => {
         if (excludeConfusing) {
             const confusing = /[0O1lI5S2Z|`']/g;
             charset = charset.replace(confusing, '');
-            charset = charset.replace(/[s]/g, '');
         }
 
         let generated = '';
@@ -209,38 +235,25 @@ const App: React.FC = () => {
                                 onChange={e => setLength(parseInt(e.target.value))}
                             />
                         </div>
-
-                        <div className="strength-container" style={{ marginTop: '24px' }}>
-                            <div className="strength-label">
-                                <span>Stärke</span>
-                                <span>{strength.label}</span>
-                            </div>
-                            <div className="strength-meter">
-                                {[1, 2, 3, 4].map(s => (
-                                    <div
-                                        key={s}
-                                        className={`strength-segment ${strength.score >= s ? 'active' : ''} ${strength.score <= 1 ? 'low' :
-                                                strength.score <= 2 ? 'medium' : 'high'
-                                            }`}
-                                    />
-                                ))}
-                            </div>
-                        </div>
                     </>
                 ) : (
                     <div className="control-group">
-                        <div className="slider-container">
-                            <div className="slider-info">
-                                <span>Anzahl der Wörter</span>
-                                <span>{wordCount}</span>
+                        <div className="input-group">
+                            <span className="input-label">Anzahl der Wörter</span>
+                            <div className="slider-container">
+                                <div className="slider-info" style={{ display: 'none' }}>
+                                    <span>Anzahl</span>
+                                    <span>{wordCount}</span>
+                                </div>
+                                <input
+                                    type="range"
+                                    min="3"
+                                    max="8"
+                                    value={wordCount}
+                                    onChange={e => setWordCount(parseInt(e.target.value))}
+                                />
+                                <span className="slider-value-display">{wordCount}</span>
                             </div>
-                            <input
-                                type="range"
-                                min="3"
-                                max="8"
-                                value={wordCount}
-                                onChange={e => setWordCount(parseInt(e.target.value))}
-                            />
                         </div>
 
                         <div className="input-group">
@@ -262,50 +275,77 @@ const App: React.FC = () => {
                                 maxLength={5}
                             />
                         </div>
-
-                        <div className="strength-container">
-                            <div className="strength-label">
-                                <span>Stärke</span>
-                                <span>{strength.label}</span>
-                            </div>
-                            <div className="strength-meter">
-                                {[1, 2, 3, 4].map(s => (
-                                    <div
-                                        key={s}
-                                        className={`strength-segment ${strength.score >= s ? 'active' : ''} ${strength.score <= 1 ? 'low' :
-                                                strength.score <= 2 ? 'medium' : 'high'
-                                            }`}
-                                    />
-                                ))}
-                            </div>
-                        </div>
                     </div>
                 )}
             </aside>
 
             <main className="main-content">
-                <div className="result-container">
+                <div className="result-area">
                     <div className="password-display">
-                        {password}
+                        <div className="password-text">{password || 'Warte auf Generierung...'}</div>
                     </div>
-                    <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
-                        <button className="generate-btn" onClick={generatePassword}>
-                            <RefreshCw size={20} style={{ marginRight: '8px' }} />
+
+                    <div className="strength-container">
+                        <div className="strength-label">
+                            <span>Stärke</span>
+                            <span>{strength.label}</span>
+                        </div>
+                        <div className="strength-meter">
+                            {[1, 2, 3, 4].map(s => (
+                                <div
+                                    key={s}
+                                    className={`strength-segment ${strength.score >= s ? 'active' : ''} ${strength.score <= 1 ? 'low' :
+                                        strength.score <= 2 ? 'medium' : 'high'
+                                        }`}
+                                />
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="action-buttons">
+                        <button className="primary-btn" onClick={generatePassword}>
+                            <RefreshCw size={20} />
                             Generieren
                         </button>
-                        <button
-                            className="generate-btn"
-                            style={{ background: copied ? '#34c759' : '#8e8e93', maxWidth: '60px', padding: '0' }}
-                            onClick={handleCopy}
-                        >
-                            {copied ? <Check size={24} /> : <Copy size={24} />}
-                        </button>
+                        <div style={{ display: 'flex', gap: '8px' }}>
+                            <button
+                                className={`secondary-btn ${copied ? 'success' : ''}`}
+                                onClick={handleCopy}
+                                title="Kopieren"
+                            >
+                                {copied ? <Check size={20} /> : <Copy size={20} />}
+                            </button>
+                            <button
+                                className="secondary-btn"
+                                onClick={() => setShowQr(true)}
+                                title="QR-Code anzeigen"
+                            >
+                                <QrIcon size={20} />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </main>
+
+            {showQr && (
+                <div className="qr-overlay" onClick={() => setShowQr(false)}>
+                    <div className="qr-modal" onClick={e => e.stopPropagation()}>
+                        <h2 style={{ margin: 0, fontSize: '1.2rem' }}>QR-Code</h2>
+                        <div className="qr-canvas-container">
+                            <canvas ref={qrCanvasRef}></canvas>
+                        </div>
+                        <div className="qr-actions">
+                            <button className="qr-close-btn" onClick={() => setShowQr(false)}>
+                                Schließen
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <footer className="version-indicator">
                 <a href="https://github.com/FlyingT/sicher/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">
-                    v1.4.0 von TK
+                    v1.5.0 von TK
                 </a>
             </footer>
         </div>

@@ -2,7 +2,17 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei festgehalten.
 
-## [1.4.0] - 2026-01-31
+## [v1.5.0] - 2026-01-30
+### Added
+- Offline QR-Code Generierung für erstellte Kennwörter/Passphrasen
+- QR-Code kann über einen neuen Button neben der Kopier-Schaltfläche angezeigt werden
+
+### Changed
+- UI Refactoring: Stärke-Anzeige wurde unter das Passwort-Feld verschoben für bessere Übersichtlichkeit
+- Layout-Anpassungen für eine kompaktere Darstellung
+- Update der Abhängigkeiten und interner Logik
+
+## [v1.4.0] - 2026-01-30
 
 ### Hinzugefügt
 - (Feature) Stärke-Indikator (Entropy Meter): Visualisierung der Passwortstärke basierend auf Entropie-Berechnung.
