@@ -2,6 +2,12 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei festgehalten.
 
+## [1.3.1] - 2026-01-31
+
+### Behoben
+- (Fix) Automatisches Entfernen von führenden Leerzeichen beim Wechsel von Standard-Trennzeichen zu benutzerdefiniertem Trennzeichen.
+- (Fix) Word-Spacing bei Passphrasen korrigiert.
+
 ## [1.3.0] - 2026-01-31
 
 ### Hinzugefügt

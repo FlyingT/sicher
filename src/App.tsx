@@ -202,7 +202,15 @@ const App: React.FC = () => {
                                 type="text"
                                 className="text-input"
                                 value={separator}
-                                onChange={e => setSeparator(e.target.value)}
+                                onChange={e => {
+                                    const val = e.target.value;
+                                    // If user types a character and there was only a space, replace it
+                                    if (separator === ' ' && val.length > 1 && val.startsWith(' ')) {
+                                        setSeparator(val.substring(1));
+                                    } else {
+                                        setSeparator(val);
+                                    }
+                                }}
                                 placeholder="Leerzeichen"
                                 maxLength={5}
                             />
@@ -233,7 +241,7 @@ const App: React.FC = () => {
             </main>
             <footer className="version-indicator">
                 <a href="https://github.com/FlyingT/sicher/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">
-                    v1.3.0 von TK
+                    v1.3.1 von TK
                 </a>
             </footer>
         </div>
