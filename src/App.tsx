@@ -83,7 +83,7 @@ const App: React.FC = () => {
             <aside className="sidebar">
                 <div className="sidebar-header">
                     <Shield size={28} />
-                    <h1>Sicher!</h1>
+                    <h1>Sicher?</h1>
                 </div>
 
                 <div className="control-group">

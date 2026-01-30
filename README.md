@@ -1,4 +1,4 @@
-# Sicher! 🛡️
+# Sicher?
 
 Ein einfacher, moderner und Docker-optimierter Passwort-Generator, der Wert auf Klarheit und Sicherheit legt.
 
