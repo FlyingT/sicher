@@ -260,7 +260,7 @@ input[type=range]::-webkit-slider-thumb {
 .main-content {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 12px;
   justify-content: center;
   align-items: center;
   background: #fbfbfc;
@@ -291,29 +291,65 @@ input[type=range]::-webkit-slider-thumb {
   color: var(--primary);
 }
 
-.generate-btn {
+.primary-btn {
+  flex: 1;
   background: var(--primary);
   color: white;
   border: none;
-  padding: 16px 32px;
-  font-size: 18px;
+  padding: 14px 24px;
+  font-size: 16px;
   font-weight: 700;
   border-radius: var(--radius);
   cursor: pointer;
   transition: all 0.3s;
   font-family: 'Outfit', sans-serif;
-  width: 100%;
-  max-width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
-.generate-btn:hover {
+.primary-btn:hover {
   background: var(--primary-hover);
-  transform: scale(1.02);
-  box-shadow: 0 4px 15px rgba(94, 92, 230, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(94, 92, 230, 0.3);
 }
 
-.generate-btn:active {
+.primary-btn:active {
   transform: scale(0.98);
+}
+
+.secondary-btn {
+  background: #f0f2f5;
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  padding: 14px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.secondary-btn:hover {
+  background: #e5e5f0;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.secondary-btn.success {
+  background: #34c759;
+  border-color: #34c759;
+  color: white;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 32px;
 }
 
 /* Version Indicator */
@@ -395,7 +431,7 @@ input[type=range]::-webkit-slider-thumb {
   background: white;
   padding: 12px;
   border-radius: 12px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border);
 }
 
 .qr-actions {
@@ -408,10 +444,10 @@ input[type=range]::-webkit-slider-thumb {
 .qr-close-btn {
   width: 100%;
   padding: 12px;
-  background: var(--bg-sidebar);
+  background: #f0f2f5;
   border: none;
   border-radius: 12px;
-  color: var(--text-primary);
+  color: var(--text-main);
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
