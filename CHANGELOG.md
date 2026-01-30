@@ -2,6 +2,15 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei festgehalten.
 
+## [1.2.0] - 2026-01-31
+
+### Hinzugefügt
+- (Feature) Benutzerdefiniertes Trennzeichen für Passphrasen einstellbar.
+
+### Geändert
+- (Fix) Slider-Bereich für Passphrasen auf 3 bis 8 Wörter korrigiert.
+- (Fix) Textbeschriftung in "Anzahl der Wörter" geändert.
+
 ## [1.1.0] - 2026-01-31
 
 ### Hinzugefügt

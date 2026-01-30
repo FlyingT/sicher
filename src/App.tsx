@@ -7,6 +7,7 @@ const App: React.FC = () => {
     const [password, setPassword] = useState('');
     const [length, setLength] = useState(16);
     const [wordCount, setWordCount] = useState(4);
+    const [separator, setSeparator] = useState(' ');
     const [includeUppercase, setIncludeUppercase] = useState(true);
     const [includeNumbers, setIncludeNumbers] = useState(true);
     const [includeSymbols, setIncludeSymbols] = useState(true);
@@ -18,7 +19,7 @@ const App: React.FC = () => {
             const array = new Uint32Array(wordCount);
             window.crypto.getRandomValues(array);
             const words = Array.from(array).map(num => wordlist[num % wordlist.length]);
-            setPassword(words.join(' '));
+            setPassword(words.join(separator));
             return;
         }
 
@@ -62,7 +63,7 @@ const App: React.FC = () => {
         }
 
         setPassword(generated);
-    }, [mode, length, wordCount, includeUppercase, includeNumbers, includeSymbols, excludeConfusing]);
+    }, [mode, length, wordCount, separator, includeUppercase, includeNumbers, includeSymbols, excludeConfusing]);
 
     useEffect(() => {
         generatePassword();
@@ -153,18 +154,32 @@ const App: React.FC = () => {
                         </div>
                     </>
                 ) : (
-                    <div className="slider-container">
-                        <div className="slider-info">
-                            <span>Anzahl Wörter</span>
-                            <span>{wordCount}</span>
+                    <div className="control-group">
+                        <div className="slider-container">
+                            <div className="slider-info">
+                                <span>Anzahl der Wörter</span>
+                                <span>{wordCount}</span>
+                            </div>
+                            <input
+                                type="range"
+                                min="3"
+                                max="8"
+                                value={wordCount}
+                                onChange={e => setWordCount(parseInt(e.target.value))}
+                            />
                         </div>
-                        <input
-                            type="range"
-                            min="3"
-                            max="10"
-                            value={wordCount}
-                            onChange={e => setWordCount(parseInt(e.target.value))}
-                        />
+
+                        <div className="input-group">
+                            <span className="input-label">Trennzeichen</span>
+                            <input
+                                type="text"
+                                className="text-input"
+                                value={separator}
+                                onChange={e => setSeparator(e.target.value)}
+                                placeholder="Leerzeichen"
+                                maxLength={5}
+                            />
+                        </div>
                     </div>
                 )}
             </aside>
@@ -191,7 +206,7 @@ const App: React.FC = () => {
             </main>
             <footer className="version-indicator">
                 <a href="https://github.com/FlyingT/sicher/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">
-                    v1.1.0 von TK
+                    v1.2.0 von TK
                 </a>
             </footer>
         </div>
