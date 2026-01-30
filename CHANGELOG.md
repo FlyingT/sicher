@@ -2,18 +2,23 @@
 
 Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei festgehalten.
 
-Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.0.0/) und dieses Projekt verwendet eine benutzerdefinierte Versionierung: `v1.[Feature].[Fix]`.
+## [1.1.0] - 2026-01-31
+
+### Hinzugefügt
+- (Feature) Passphrasen-Generator integriert (Modus-Umschalter in der Sidebar).
+- (Feature) Deutsche Wörterliste (7700+ Begriffe) für sichere Passphrasen.
+- (Feature) Slider für die Anzahl der Wörter (3-10) im Passphrasen-Modus.
 
 ## [1.0.3] - 2026-01-30
 
 ### Hinzugefügt
+- (Fix) Neues Padlock-Icon im UI mit abgerundetem Hintergrund (identisch zu Mosaik/Belegt Stil).
 - (Fix) Docker-Compose Code-Beispiel in der `README.md` ergänzt.
 
 ## [1.0.2] - 2026-01-30
 
 ### Hinzugefügt
 - (Fix) Tagline "Einfacher, lokaler Kennwort und Passphrasen Generator" im UI ergänzt.
-- (Fix) Neues Padlock-Icon im UI mit abgerundetem Hintergrund (identisch zu Mosaik/Belegt Stil).
 - (Fix) Favicon im Browser-Tab hinzugefügt (Padlock-Icon).
 
 ### Geändert

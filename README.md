@@ -5,17 +5,12 @@ Ein einfacher, moderner und Docker-optimierter Kennwort und Passphrasen Generato
 ## Features
 
 - **Privatsphäre**: Vollständig lokale Generierung im Browser – es werden keine Daten an Server übertragen.
-- **Individuelle Generierung**: Schalter für Großbuchstaben, Zahlen und Sonderzeichen.
-- **Längen-Kontrolle**: Stufenloser Slider für Kennwortlängen zwischen 8 und 32 Zeichen.
-- **Kopieren mit einem Klick**: Schnelles Kopieren des generierten Passworts.
-- **Intelligenter Ausschluss**: Optionale Logik zur Vermeidung verwechselbarer Zeichenpaare und Sequenzen:
-  - `0` (Null) vs. `O` (O)
-  - `1` (Eins) vs. `l` (kleines L) vs. `I` (großes i) vs. `|` (Pipe)
-  - `5` (Fünf) vs. `S` (S)
-  - `2` (Zwei) vs. `Z` (Z)
-  - `vv` (doppeltes v) vs. `w` (w)
-  - `rn` (r & n) vs. `m` (m)
-  - `` ` `` (Backtick) vs. `'` (einfaches Anführungszeichen)
+- **Kennwort & Passphrase**: Wähle zwischen klassischen Kennwörtern oder einprägsamen Passphrasen.
+- **Wörterliste**: Passphrasen werden aus einer kuratierten Liste von über 7.700 deutschen Wörtern generiert.
+- **Individuelle Kontrolle**:
+  - **Kennwort**: Schalter für Großbuchstaben, Zahlen, Sonderzeichen und Länge (8-32).
+  - **Passphrase**: Auswahl der Wortanzahl (3-10).
+- **Intelligenter Ausschluss**: Optionale Logik zur Vermeidung verwechselbarer Zeichenpaare und Sequenzen (z.B. `0` vs `O`, `1` vs `l`, `rn` vs `m`).
 
 ## Deployment
 

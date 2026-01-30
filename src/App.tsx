@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Lock, Copy, RefreshCw, Check } from 'lucide-react';
+import { wordlist } from './words';
 
 const App: React.FC = () => {
+    const [mode, setMode] = useState<'password' | 'passphrase'>('password');
     const [password, setPassword] = useState('');
     const [length, setLength] = useState(16);
+    const [wordCount, setWordCount] = useState(4);
     const [includeUppercase, setIncludeUppercase] = useState(true);
     const [includeNumbers, setIncludeNumbers] = useState(true);
     const [includeSymbols, setIncludeSymbols] = useState(true);
@@ -11,6 +14,14 @@ const App: React.FC = () => {
     const [copied, setCopied] = useState(false);
 
     const generatePassword = useCallback(() => {
+        if (mode === 'passphrase') {
+            const array = new Uint32Array(wordCount);
+            window.crypto.getRandomValues(array);
+            const words = Array.from(array).map(num => wordlist[num % wordlist.length]);
+            setPassword(words.join(' '));
+            return;
+        }
+
         let charset = 'abcdefghijklmnopqrstuvwxyz';
         const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const numberChars = '0123456789';
@@ -21,13 +32,8 @@ const App: React.FC = () => {
         if (includeSymbols) charset += symbolChars;
 
         if (excludeConfusing) {
-            // Remove: 0, O, 1, l, I, 5, S, 2, Z
-            // Remove: |, `, '
-            // We also handle 'vv' and 'rn' during generation
             const confusing = /[0O1lI5S2Z|`']/g;
             charset = charset.replace(confusing, '');
-
-            // Special cases for S/s logic mentioned in plan
             charset = charset.replace(/[s]/g, '');
         }
 
@@ -38,22 +44,13 @@ const App: React.FC = () => {
         for (let i = 0; i < length; i++) {
             let nextChar = charset[array[i] % charset.length];
 
-            // Handle confusing sequences: vv (don't allow w to be confused or vv to form)
             if (excludeConfusing) {
-                // If the character is 'w' and we exclude confusing, we might want to skip it? 
-                // The prompt said "vv (doppeltes v) und w (Buchstabe w)". 
-                // This usually means exclude 'w' because it looks like 'vv'.
                 if (nextChar === 'w') {
-                    // re-roll once
                     nextChar = charset[(array[i] + 1) % charset.length];
                 }
-
-                // rn -> m
                 if (nextChar === 'm') {
                     nextChar = charset[(array[i] + 2) % charset.length];
                 }
-
-                // If about to form 'vv' or 'rn', re-roll
                 if (i > 0) {
                     const prev = generated[i - 1];
                     if ((prev === 'v' && nextChar === 'v') || (prev === 'r' && nextChar === 'n')) {
@@ -61,12 +58,11 @@ const App: React.FC = () => {
                     }
                 }
             }
-
             generated += nextChar;
         }
 
         setPassword(generated);
-    }, [length, includeUppercase, includeNumbers, includeSymbols, excludeConfusing]);
+    }, [mode, length, wordCount, includeUppercase, includeNumbers, includeSymbols, excludeConfusing]);
 
     useEffect(() => {
         generatePassword();
@@ -91,53 +87,86 @@ const App: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="control-group">
-                    <div className="switch-item">
-                        <span className="switch-label">Großbuchstaben</span>
-                        <label className="switch">
-                            <input type="checkbox" checked={includeUppercase} onChange={e => setIncludeUppercase(e.target.checked)} />
-                            <span className="slider-toggle"></span>
-                        </label>
-                    </div>
-
-                    <div className="switch-item">
-                        <span className="switch-label">Zahlen</span>
-                        <label className="switch">
-                            <input type="checkbox" checked={includeNumbers} onChange={e => setIncludeNumbers(e.target.checked)} />
-                            <span className="slider-toggle"></span>
-                        </label>
-                    </div>
-
-                    <div className="switch-item">
-                        <span className="switch-label">Sonderzeichen</span>
-                        <label className="switch">
-                            <input type="checkbox" checked={includeSymbols} onChange={e => setIncludeSymbols(e.target.checked)} />
-                            <span className="slider-toggle"></span>
-                        </label>
-                    </div>
-
-                    <div className="switch-item">
-                        <span className="switch-label">Keine verwechselbaren Zeichen</span>
-                        <label className="switch">
-                            <input type="checkbox" checked={excludeConfusing} onChange={e => setExcludeConfusing(e.target.checked)} />
-                            <span className="slider-toggle"></span>
-                        </label>
-                    </div>
+                <div className="mode-toggle">
+                    <button
+                        className={mode === 'password' ? 'active' : ''}
+                        onClick={() => setMode('password')}
+                    >
+                        Kennwort
+                    </button>
+                    <button
+                        className={mode === 'passphrase' ? 'active' : ''}
+                        onClick={() => setMode('passphrase')}
+                    >
+                        Passphrase
+                    </button>
                 </div>
 
-                <div className="slider-container">
-                    <div className="slider-info">
-                        <span>Länge</span>
-                        <span>{length}</span>
+                {mode === 'password' ? (
+                    <>
+                        <div className="control-group">
+                            <div className="switch-item">
+                                <span className="switch-label">Großbuchstaben</span>
+                                <label className="switch">
+                                    <input type="checkbox" checked={includeUppercase} onChange={e => setIncludeUppercase(e.target.checked)} />
+                                    <span className="slider-toggle"></span>
+                                </label>
+                            </div>
+
+                            <div className="switch-item">
+                                <span className="switch-label">Zahlen</span>
+                                <label className="switch">
+                                    <input type="checkbox" checked={includeNumbers} onChange={e => setIncludeNumbers(e.target.checked)} />
+                                    <span className="slider-toggle"></span>
+                                </label>
+                            </div>
+
+                            <div className="switch-item">
+                                <span className="switch-label">Sonderzeichen</span>
+                                <label className="switch">
+                                    <input type="checkbox" checked={includeSymbols} onChange={e => setIncludeSymbols(e.target.checked)} />
+                                    <span className="slider-toggle"></span>
+                                </label>
+                            </div>
+
+                            <div className="switch-item">
+                                <span className="switch-label">Keine verwechselbaren Zeichen</span>
+                                <label className="switch">
+                                    <input type="checkbox" checked={excludeConfusing} onChange={e => setExcludeConfusing(e.target.checked)} />
+                                    <span className="slider-toggle"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="slider-container">
+                            <div className="slider-info">
+                                <span>Länge</span>
+                                <span>{length}</span>
+                            </div>
+                            <input
+                                type="range"
+                                min="8"
+                                max="32"
+                                value={length}
+                                onChange={e => setLength(parseInt(e.target.value))}
+                            />
+                        </div>
+                    </>
+                ) : (
+                    <div className="slider-container">
+                        <div className="slider-info">
+                            <span>Anzahl Wörter</span>
+                            <span>{wordCount}</span>
+                        </div>
+                        <input
+                            type="range"
+                            min="3"
+                            max="10"
+                            value={wordCount}
+                            onChange={e => setWordCount(parseInt(e.target.value))}
+                        />
                     </div>
-                    <input
-                        type="range"
-                        min="8"
-                        max="32"
-                        value={length}
-                        onChange={e => setLength(parseInt(e.target.value))}
-                    />
-                </div>
+                )}
             </aside>
 
             <main className="main-content">
@@ -162,7 +191,7 @@ const App: React.FC = () => {
             </main>
             <footer className="version-indicator">
                 <a href="https://github.com/FlyingT/sicher/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">
-                    v1.0.3 von TK
+                    v1.1.0 von TK
                 </a>
             </footer>
         </div>
