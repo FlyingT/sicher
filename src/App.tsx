@@ -81,8 +81,9 @@ const App: React.FC = () => {
             const array = new Uint32Array(wordCount);
             window.crypto.getRandomValues(array);
             const words = Array.from(array).map(num => wordlist[num % wordlist.length]);
-            // Ensure no leading/trailing spaces in the result if not intended
-            setPassword(words.join(separator).trim());
+            // Sanitize separator to avoid accidental trailing spaces
+            const actualSeparator = separator.length > 1 ? separator.trim() : separator;
+            setPassword(words.join(actualSeparator).trim());
             return;
         }
 
@@ -365,8 +366,8 @@ const App: React.FC = () => {
             )}
 
             <div className="version-indicator">
-                <a href="https://github.com/FlyingT/sicher" target="_blank" rel="noopener noreferrer">
-                    v1.6.0 von TK
+                <a href="https://github.com/FlyingT/sicher/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">
+                    v1.6.1 von TK
                 </a>
             </div>
         </div>

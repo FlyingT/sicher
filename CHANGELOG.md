@@ -1,3 +1,8 @@
+## [1.6.1] - 2026-01-31
+### Fixed
+- Fehler korrigiert, bei dem unnötige Leerzeichen in die Passphrase eingefügt wurden.
+- Versions-Link im Footer führt nun direkt zum Changelog.
+
 ## [v1.6.0] - 2026-01-31
 ### Added
 - Dark Mode Support: Automatische Erkennung der Systemeinstellungen und manueller Toggle (oben rechts).

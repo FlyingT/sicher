@@ -12,6 +12,8 @@ Vibe-Coded mit Google Antigravity. Gedacht für die Bereitstellung im Intranet, 
 - **Kopieren mit Feedback**: Ein-Klick-Kopieren mit visueller Bestätigung (Haken & Grünfärbung).
 - **Stärke-Anzeige**: Integriertes Entropy Meter, das die Sicherheit von Kennwörtern und Passphrasen visualisiert.
 
+### Aktuelle Version: v1.6.1 (31. Januar 2026)
+
 ## Deployment
 
 Um den Generator lokal mit Docker zu starten, kann folgende `docker-compose.yml` verwendet werden:
