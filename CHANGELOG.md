@@ -1,8 +1,12 @@
-# Changelog
+## [v1.6.0] - 2026-01-31
+### Added
+- Dark Mode Support: Automatische Erkennung der Systemeinstellungen und manueller Toggle (oben rechts).
+- Die Design-Einstellungen werden dauerhaft im Browser gespeichert (`localStorage`).
 
-Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei festgehalten.
+### Fixed
+- Der Standardwert für die Wortanzahl bei Passphrasen wurde auf 5 Wörter erhöht.
 
-## [v1.5.0] - 2026-01-30
+## [v1.5.0] - 2026-01-31
 ### Added
 - Offline QR-Code Generierung für erstellte Kennwörter/Passphrasen
 - QR-Code kann über einen neuen Button neben der Kopier-Schaltfläche angezeigt werden
@@ -12,7 +16,7 @@ Alle wichtigen Änderungen an diesem Projekt werden in dieser Datei festgehalten
 - Layout-Anpassungen für eine kompaktere Darstellung
 - Update der Abhängigkeiten und interner Logik
 
-## [v1.4.0] - 2026-01-30
+## [v1.4.0] - 2026-01-31
 
 ### Hinzugefügt
 - (Feature) Stärke-Indikator (Entropy Meter): Visualisierung der Passwortstärke basierend auf Entropie-Berechnung.

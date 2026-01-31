@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Lock, Copy, RefreshCw, Check, QrCode as QrIcon } from 'lucide-react';
+import { Lock, Copy, RefreshCw, Check, QrCode as QrIcon, Sun, Moon } from 'lucide-react';
 import { wordlist } from './words';
 import { qrcodegen } from './qrcodegen';
 
 const App: React.FC = () => {
     const [mode, setMode] = useState<'password' | 'passphrase'>('password');
     const [length, setLength] = useState(16);
-    const [wordCount, setWordCount] = useState(4);
+    const [wordCount, setWordCount] = useState(5);
     const [separator, setSeparator] = useState(' ');
     const [password, setPassword] = useState('');
     const [includeUppercase, setIncludeUppercase] = useState(true);
@@ -15,6 +15,11 @@ const App: React.FC = () => {
     const [excludeConfusing, setExcludeConfusing] = useState(true);
     const [copied, setCopied] = useState(false);
     const [showQr, setShowQr] = useState(false);
+    const [darkMode, setDarkMode] = useState(() => {
+        const saved = localStorage.getItem('theme');
+        if (saved) return saved === 'dark';
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    });
     const [strength, setStrength] = useState<{ score: number; label: string }>({ score: 0, label: 'Sehr schwach' });
     const qrCanvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -126,6 +131,15 @@ const App: React.FC = () => {
         generatePassword();
     }, [generatePassword]);
 
+    useEffect(() => {
+        localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+        if (darkMode) {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+    }, [darkMode]);
+
     const handleCopy = async () => {
         if (!password) return;
 
@@ -159,7 +173,14 @@ const App: React.FC = () => {
     };
 
     return (
-        <div className="app-container">
+        <div className={`app-container ${darkMode ? 'dark' : ''}`}>
+            <button
+                className="theme-toggle"
+                onClick={() => setDarkMode(!darkMode)}
+                title={darkMode ? 'Light Mode' : 'Dark Mode'}
+            >
+                {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
             <aside className="sidebar">
                 <div className="sidebar-header">
                     <div className="app-icon">
@@ -343,11 +364,11 @@ const App: React.FC = () => {
                 </div>
             )}
 
-            <footer className="version-indicator">
-                <a href="https://github.com/FlyingT/sicher/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">
-                    v1.5.0 von TK
+            <div className="version-indicator">
+                <a href="https://github.com/FlyingT/sicher" target="_blank" rel="noopener noreferrer">
+                    v1.6.0 von TK
                 </a>
-            </footer>
+            </div>
         </div>
     );
 };

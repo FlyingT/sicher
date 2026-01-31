@@ -5,11 +5,24 @@
   --primary-hover: #4d4bbd;
   --bg-main: #f0f2f5;
   --bg-card: #ffffff;
+  --bg-input: #f8f9fa;
+  --bg-sidebar: #ffffff;
   --text-main: #1d1d1f;
   --text-secondary: #86868b;
   --border: #d2d2d7;
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
   --radius: 12px;
+}
+
+.dark {
+  --bg-main: #121212;
+  --bg-card: #1c1c1e;
+  --bg-input: #2c2c2e;
+  --bg-sidebar: #1c1c1e;
+  --text-main: #f5f5f7;
+  --text-secondary: #a1a1a6;
+  --border: #38383a;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 * {
@@ -96,7 +109,7 @@ body {
 
 .mode-toggle {
   display: flex;
-  background: #f0f2f5;
+  background: var(--bg-input);
   padding: 4px;
   border-radius: 12px;
   margin-bottom: 24px;
@@ -126,7 +139,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 12px;
-  background: #f8f9fa;
+  background: var(--bg-input);
   border-radius: var(--radius);
   margin-top: 10px;
 }
@@ -140,6 +153,8 @@ body {
   width: 80px;
   padding: 8px 12px;
   border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-main);
   border-radius: 8px;
   font-family: inherit;
   font-size: 14px;
@@ -164,7 +179,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 12px;
-  background: #f8f9fa;
+  background: var(--bg-input);
   border-radius: var(--radius);
   transition: transform 0.2s;
 }
@@ -263,7 +278,7 @@ input[type=range]::-webkit-slider-thumb {
   gap: 12px;
   justify-content: center;
   align-items: center;
-  background: #fbfbfc;
+  background: var(--bg-main);
   border-radius: 16px;
   padding: 40px;
   border: 1px dashed var(--border);
@@ -277,7 +292,7 @@ input[type=range]::-webkit-slider-thumb {
 .password-display {
   font-family: 'Monaco', 'Consolas', monospace;
   font-size: 32px;
-  background: white;
+  background: var(--bg-card);
   padding: 24px;
   border-radius: var(--radius);
   border: 1px solid var(--border);
@@ -320,7 +335,7 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 .secondary-btn {
-  background: #f0f2f5;
+  background: var(--bg-input);
   color: var(--text-main);
   border: 1px solid var(--border);
   padding: 14px;
@@ -333,7 +348,7 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 .secondary-btn:hover {
-  background: #e5e5f0;
+  background: var(--bg-main);
   border-color: var(--primary);
   color: var(--primary);
 }
@@ -415,36 +430,55 @@ input[type=range]::-webkit-slider-thumb {
   animation: fadeIn 0.2s ease;
 }
 
+.theme-toggle {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  padding: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.theme-toggle:hover {
+  background: var(--bg-main);
+  transform: translateY(-2px);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
 .qr-modal {
-  background: white;
+  background: var(--bg-card);
   padding: 32px;
   border-radius: 24px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
   max-width: 90vw;
+  color: var(--text-main);
 }
 
 .qr-canvas-container {
   background: white;
+  /* Always white for QR readability */
   padding: 12px;
   border-radius: 12px;
   border: 1px solid var(--border);
 }
 
-.qr-actions {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
 .qr-close-btn {
   width: 100%;
   padding: 12px;
-  background: #f0f2f5;
+  background: var(--bg-input);
   border: none;
   border-radius: 12px;
   color: var(--text-main);

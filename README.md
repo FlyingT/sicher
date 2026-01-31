@@ -1,9 +1,11 @@
 # Sicher?
 
-Ein einfacher, moderner und Docker-optimierter Kennwort und Passphrasen Generator, der Wert auf Klarheit und Sicherheit legt.
+Ein einfacher, moderner und Docker-optimierter Kennwort und Passphrasen Generator, der Wert auf Klarheit und Sicherheit legt. 
+Vibe-Coded mit Google Antigravity. Gedacht für die Bereitstellung im Intranet, nicht für das Internet.
 
 ## Features
 
+- **Dark Mode**: Automatische Systemerkennung und manueller Toggle (Einstellungen werden gespeichert).
 - **Offline QR-Code**: Generiere einen QR-Code für dein Passwort direkt lokal in der App.
 - **Entropie-Meter**: Visuelle Anzeige der Passwortstärke in Echtzeit.
 - **Passphrasen-Modus**: Generiere sichere Sätze aus einer Liste von über 7.700 Wörtern.
