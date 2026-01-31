@@ -1,9 +1,8 @@
-## [1.6.1] - 2026-01-31
+## [1.6.2] - 2026-01-31
 ### Fixed
-- Fehler korrigiert, bei dem unnötige Leerzeichen in die Passphrase eingefügt wurden.
-- Versions-Link im Footer führt nun direkt zum Changelog.
+- Standard-Trennzeichen für Passphrasen auf "-" gesetzt.
 
-## [v1.6.0] - 2026-01-31
+## [1.6.1] - 2026-01-31
 ### Added
 - Dark Mode Support: Automatische Erkennung der Systemeinstellungen und manueller Toggle (oben rechts).
 - Die Design-Einstellungen werden dauerhaft im Browser gespeichert (`localStorage`).

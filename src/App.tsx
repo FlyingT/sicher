@@ -7,7 +7,7 @@ const App: React.FC = () => {
     const [mode, setMode] = useState<'password' | 'passphrase'>('password');
     const [length, setLength] = useState(16);
     const [wordCount, setWordCount] = useState(5);
-    const [separator, setSeparator] = useState(' ');
+    const [separator, setSeparator] = useState('-');
     const [password, setPassword] = useState('');
     const [includeUppercase, setIncludeUppercase] = useState(true);
     const [includeNumbers, setIncludeNumbers] = useState(true);
@@ -367,7 +367,7 @@ const App: React.FC = () => {
 
             <div className="version-indicator">
                 <a href="https://github.com/FlyingT/sicher/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">
-                    v1.6.1 von TK
+                    v1.6.2 von TK
                 </a>
             </div>
         </div>
