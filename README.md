@@ -5,6 +5,9 @@ Vibe-Coded mit Google Antigravity. Gedacht für die Bereitstellung im Intranet, 
 
 ![](https://github.com/FlyingT/sicher/blob/main/1-Dashboard.png)
 
+
+![](https://github.com/FlyingT/sicher/blob/main/2-Dashboard.png)
+
 ## Features
 
 - **Design-Harmonisierung**: UI vollständig an das Projekt "Belegt" angepasst (Inter-Font, Gray-50/Blue-500 Design).
