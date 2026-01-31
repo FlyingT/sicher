@@ -183,15 +183,15 @@ const App: React.FC = () => {
                 {darkMode ? <Sun size={20} /> : <Moon size={20} />}
             </button>
             <aside className="sidebar">
-                <div className="sidebar-header">
+                <header className="sidebar-header">
                     <div className="app-icon">
                         <Lock size={20} color="white" strokeWidth={3} />
                     </div>
                     <div>
                         <h1>Sicher?</h1>
-                        <p className="tagline">Einfacher, lokaler Kennwort und Passphrasen Generator</p>
+                        <p className="tagline">Einfacher, lokaler Kennwort-Generator</p>
                     </div>
-                </div>
+                </header>
 
                 <div className="mode-toggle">
                     <button
@@ -365,11 +365,11 @@ const App: React.FC = () => {
                 </div>
             )}
 
-            <div className="version-indicator">
+            <footer className="version-indicator">
                 <a href="https://github.com/FlyingT/sicher/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">
-                    v1.6.2 von TK
+                    v1.7.0 von TK
                 </a>
-            </div>
+            </footer>
         </div>
     );
 };

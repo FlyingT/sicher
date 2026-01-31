@@ -1,8 +1,12 @@
-## [1.6.2] - 2026-01-31
-### Fixed
-- Standard-Trennzeichen für Passphrasen auf "-" gesetzt.
+## [1.7.0] - 2026-01-31
+### Added
+- Design-Harmonisierung: UI an das Projekt "Belegt" angepasst.
+- Umstellung auf die Schriftart **Inter** für die gesamte App.
+- Neues Farbschema basierend auf Tailwind Gray-50 und Blue-500.
+- Modernere, reduzierte Eckenradien (8px) und verfeinerte Schatten.
+- Optimierter Header und dezentere Footer-Gestaltung.
 
-## [1.6.1] - 2026-01-31
+## [1.6.2] - 2026-01-31
 ### Added
 - Dark Mode Support: Automatische Erkennung der Systemeinstellungen und manueller Toggle (oben rechts).
 - Die Design-Einstellungen werden dauerhaft im Browser gespeichert (`localStorage`).

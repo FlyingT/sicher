@@ -7,12 +7,14 @@ Vibe-Coded mit Google Antigravity. Gedacht für die Bereitstellung im Intranet, 
 
 ## Features
 
+- **Design-Harmonisierung**: UI vollständig an das Projekt "Belegt" angepasst (Inter-Font, Gray-50/Blue-500 Design).
 - **Dark Mode**: Automatische Systemerkennung und manueller Toggle (Einstellungen werden gespeichert).
 - **Offline QR-Code**: Generiere einen QR-Code für dein Passwort direkt lokal in der App.
 - **Entropie-Meter**: Visuelle Anzeige der Passwortstärke in Echtzeit.
 - **Passphrasen-Modus**: Generiere sichere Sätze aus einer Liste von über 7.700 Wörtern.
 - **Kopieren mit Feedback**: Ein-Klick-Kopieren mit visueller Bestätigung (Haken & Grünfärbung).
-- **Stärke-Anzeige**: Integriertes Entropy Meter, das die Sicherheit von Kennwörtern und Passphrasen visualisiert.
+
+### Aktuelle Version: v1.7.0 (31. Januar 2026)
 
 ## Deployment
 
