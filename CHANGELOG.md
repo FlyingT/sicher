@@ -1,3 +1,11 @@
+## [1.8.1] - 2026-02-01
+### Fixed
+- **Navbar Tagline**: Beschreibung "Einfacher, lokaler Kennwort- und Passphrasen-Generator" hinzugefügt.
+- **UI Polishing**: "Shaded"-Look für den Modus-Toggle wiederhergestellt (Schatten & Hintergrund).
+- **Footer**: Feststehender Footer-Balken mit Schattierung hinzugefügt (wie in Mosaik).
+- **Slider Design**: Slider für Wortanzahl (Passphrase) an das Design der Kennwort-Länge angepasst.
+- **QR-Code Cleanup**: Header-Text und Logo im Popup entfernt für einen cleaner Look.
+
 ## [1.8.0] - 2026-02-01
 ### Added
 - **Major Redesign**: Umstellung auf ein modernes Top-Navbar Layout (inspiriert durch "Belegt" & "Mosaik").

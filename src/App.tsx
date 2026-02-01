@@ -182,6 +182,20 @@ const App: React.FC = () => {
                         <span>Sicher?</span>
                     </div>
                     <div className="nav-actions">
+                        <span className="nav-tagline" style={{
+                            fontSize: '0.85rem',
+                            color: 'var(--text-secondary)',
+                            fontWeight: 500,
+                            marginRight: '8px',
+                            display: 'none' // Hidden on small screens, will add CSS for visibility
+                        }}>
+                            Einfacher, lokaler Kennwort- und Passphrasen-Generator
+                        </span>
+                        <style>{`
+                            @media (min-width: 900px) {
+                                .nav-tagline { display: block !important; }
+                            }
+                        `}</style>
                         <button
                             className="secondary-btn"
                             style={{ padding: '8px', width: '40px', height: '40px' }}
@@ -269,21 +283,21 @@ const App: React.FC = () => {
                             </>
                         ) : (
                             <div className="control-group">
-                                <div className="input-group">
-                                    <span className="input-label">Anzahl der Wörter</span>
-                                    <div className="slider-container">
-                                        <input
-                                            type="range"
-                                            min="3"
-                                            max="12"
-                                            value={wordCount}
-                                            onChange={e => setWordCount(parseInt(e.target.value))}
-                                        />
+                                <div className="slider-container">
+                                    <div className="slider-info">
+                                        <span className="input-label">Anzahl der Wörter</span>
                                         <span className="slider-value-display">{wordCount}</span>
                                     </div>
+                                    <input
+                                        type="range"
+                                        min="3"
+                                        max="12"
+                                        value={wordCount}
+                                        onChange={e => setWordCount(parseInt(e.target.value))}
+                                    />
                                 </div>
 
-                                <div className="input-group">
+                                <div className="input-group" style={{ marginTop: '20px' }}>
                                     <span className="input-label">Trennzeichen</span>
                                     <input
                                         type="text"
@@ -351,10 +365,6 @@ const App: React.FC = () => {
             {showQr && (
                 <div className="qr-overlay" onClick={() => setShowQr(false)}>
                     <div className="qr-modal" onClick={e => e.stopPropagation()}>
-                        <div className="section-header" style={{ marginBottom: '24px' }}>
-                            <QrIcon size={20} />
-                            Zentrierter QR-Code (Offline)
-                        </div>
                         <div className="qr-canvas-container">
                             <canvas ref={qrCanvasRef}></canvas>
                         </div>
@@ -369,7 +379,7 @@ const App: React.FC = () => {
 
             <footer className="version-indicator">
                 <a href="https://github.com/FlyingT/sicher/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">
-                    v1.8.0 von TK
+                    v1.8.1 von TK
                 </a>
             </footer>
         </div>

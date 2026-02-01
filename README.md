@@ -11,15 +11,13 @@ Vibe-Coded mit Google Antigravity. Gedacht für die Bereitstellung im Intranet, 
 ## Features
 
 - **Major Redesign**: Modernes Top-Navbar-Layout für eine bessere Übersicht.
+- **Navbar Tagline**: Descriptive tagline added for better context.
 - **Brand Consistency**: Design-Harmonisierung mit den Projekten "Belegt" und "Mosaik".
-- **Farbpalette**: Indigo/Slate Design-System für ein professionelles Look & Feel.
-- **UX-Optimierung**: Card-basierte Struktur für Einstellungen und Ergebnisse.
-- **Passphrasen-Modus**: Generiere sichere Sätze aus über 7.700 Wörtern.
-- **Entropie-Meter**: In Echtzeit berechnete Passwortstärke (bits of entropy).
-- **Offline QR-Code**: Lokale Generierung zum schnellen Scannen.
-- **Dark Mode**: Vollständige Unterstützung für Slate/Indigo Styles.
+- **Shaded Footer**: New shaded footer bar for versioning.
+- **Improved UX**: Shaded mode toggles and unified slider designs.
+- **Offline QR-Code**: Cleaned up popup for maximum simplicity.
 
-### Aktuelle Version: v1.8.0 (01. Februar 2026)
+### Aktuelle Version: v1.8.1 (01. Februar 2026)
 
 ## Deployment
 
