@@ -1,3 +1,11 @@
+## [1.8.0] - 2026-02-01
+### Added
+- **Major Redesign**: Umstellung auf ein modernes Top-Navbar Layout (inspiriert durch "Belegt" & "Mosaik").
+- **Brand Consistency**: Neue Farbpalette basierend auf Indigo und Slate.
+- **Improved UX**: Card-basierte Struktur für Einstellungen und Ergebnisse.
+- **Enhanced Mobile UI**: Vollständig responsives Header-Layout.
+- **Bugfixes**: Kleinere CSS Korrekturen für den Dark Mode.
+
 ## [1.7.0] - 2026-01-31
 ### Added
 - Design-Harmonisierung: UI an das Projekt "Belegt" angepasst.

@@ -174,190 +174,192 @@ const App: React.FC = () => {
     };
 
     return (
-        <div className={`app-container ${darkMode ? 'dark' : ''}`}>
-            <button
-                className="theme-toggle"
-                onClick={() => setDarkMode(!darkMode)}
-                title={darkMode ? 'Light Mode' : 'Dark Mode'}
-            >
-                {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
-            <aside className="sidebar">
-                <header className="sidebar-header">
-                    <div className="app-icon">
-                        <Lock size={20} color="white" strokeWidth={3} />
+        <div className={`app-wrapper ${darkMode ? 'dark' : ''}`}>
+            <nav className="navbar">
+                <div className="navbar-content">
+                    <div className="nav-brand">
+                        <Lock size={24} strokeWidth={3} />
+                        <span>Sicher?</span>
                     </div>
-                    <div>
-                        <h1>Sicher?</h1>
-                        <p className="tagline">Einfacher, lokaler Kennwort-Generator</p>
-                    </div>
-                </header>
-
-                <div className="mode-toggle">
-                    <button
-                        className={mode === 'password' ? 'active' : ''}
-                        onClick={() => setMode('password')}
-                    >
-                        Kennwort
-                    </button>
-                    <button
-                        className={mode === 'passphrase' ? 'active' : ''}
-                        onClick={() => setMode('passphrase')}
-                    >
-                        Passphrase
-                    </button>
-                </div>
-
-                {mode === 'password' ? (
-                    <>
-                        <div className="control-group">
-                            <div className="switch-item">
-                                <span className="switch-label">Großbuchstaben</span>
-                                <label className="switch">
-                                    <input type="checkbox" checked={includeUppercase} onChange={e => setIncludeUppercase(e.target.checked)} />
-                                    <span className="slider-toggle"></span>
-                                </label>
-                            </div>
-
-                            <div className="switch-item">
-                                <span className="switch-label">Zahlen</span>
-                                <label className="switch">
-                                    <input type="checkbox" checked={includeNumbers} onChange={e => setIncludeNumbers(e.target.checked)} />
-                                    <span className="slider-toggle"></span>
-                                </label>
-                            </div>
-
-                            <div className="switch-item">
-                                <span className="switch-label">Sonderzeichen</span>
-                                <label className="switch">
-                                    <input type="checkbox" checked={includeSymbols} onChange={e => setIncludeSymbols(e.target.checked)} />
-                                    <span className="slider-toggle"></span>
-                                </label>
-                            </div>
-
-                            <div className="switch-item">
-                                <span className="switch-label">Keine verwechselbaren Zeichen</span>
-                                <label className="switch">
-                                    <input type="checkbox" checked={excludeConfusing} onChange={e => setExcludeConfusing(e.target.checked)} />
-                                    <span className="slider-toggle"></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div className="slider-container">
-                            <div className="slider-info">
-                                <span>Länge</span>
-                                <span>{length}</span>
-                            </div>
-                            <input
-                                type="range"
-                                min="8"
-                                max="32"
-                                value={length}
-                                onChange={e => setLength(parseInt(e.target.value))}
-                            />
-                        </div>
-                    </>
-                ) : (
-                    <div className="control-group">
-                        <div className="input-group">
-                            <span className="input-label">Anzahl der Wörter</span>
-                            <div className="slider-container">
-                                <div className="slider-info" style={{ display: 'none' }}>
-                                    <span>Anzahl</span>
-                                    <span>{wordCount}</span>
-                                </div>
-                                <input
-                                    type="range"
-                                    min="3"
-                                    max="8"
-                                    value={wordCount}
-                                    onChange={e => setWordCount(parseInt(e.target.value))}
-                                />
-                                <span className="slider-value-display">{wordCount}</span>
-                            </div>
-                        </div>
-
-                        <div className="input-group">
-                            <span className="input-label">Trennzeichen</span>
-                            <input
-                                type="text"
-                                className="text-input"
-                                value={separator}
-                                onChange={e => {
-                                    const val = e.target.value;
-                                    // If user types a character and there was only a space, replace it
-                                    if (separator === ' ' && val.length > 1 && val.startsWith(' ')) {
-                                        setSeparator(val.substring(1));
-                                    } else {
-                                        setSeparator(val);
-                                    }
-                                }}
-                                placeholder=""
-                                maxLength={5}
-                            />
-                        </div>
-                    </div>
-                )}
-            </aside>
-
-            <main className="main-content">
-                <div className="result-area">
-                    <div className="password-display">
-                        <div className="password-text">{password || 'Warte auf Generierung...'}</div>
-                    </div>
-
-                    <div className="strength-container">
-                        <div className="strength-label">
-                            <span>Stärke</span>
-                            <span>{strength.label}</span>
-                        </div>
-                        <div className="strength-meter">
-                            {[1, 2, 3, 4].map(s => (
-                                <div
-                                    key={s}
-                                    className={`strength-segment ${strength.score >= s ? 'active' : ''} ${strength.score <= 1 ? 'low' :
-                                        strength.score <= 2 ? 'medium' : 'high'
-                                        }`}
-                                />
-                            ))}
-                        </div>
-                    </div>
-
-                    <div className="action-buttons">
-                        <button className="primary-btn" onClick={generatePassword}>
-                            <RefreshCw size={20} />
-                            Generieren
+                    <div className="nav-actions">
+                        <button
+                            className="secondary-btn"
+                            style={{ padding: '8px', width: '40px', height: '40px' }}
+                            onClick={() => setDarkMode(!darkMode)}
+                            title={darkMode ? 'Light Mode' : 'Dark Mode'}
+                        >
+                            {darkMode ? <Sun size={20} /> : <Moon size={20} />}
                         </button>
-                        <div style={{ display: 'flex', gap: '8px' }}>
+                    </div>
+                </div>
+            </nav>
+
+            <main className="main-container">
+                <div className="content-grid">
+                    <aside className="settings-card">
+                        <div className="section-header">
+                            <RefreshCw size={18} />
+                            Modus & Einstellungen
+                        </div>
+
+                        <div className="mode-toggle" style={{ marginBottom: '24px' }}>
                             <button
-                                className={`secondary-btn ${copied ? 'success' : ''}`}
-                                onClick={handleCopy}
-                                title="Kopieren"
+                                className={mode === 'password' ? 'active' : ''}
+                                onClick={() => setMode('password')}
                             >
-                                {copied ? <Check size={20} /> : <Copy size={20} />}
+                                Kennwort
                             </button>
                             <button
-                                className="secondary-btn"
-                                onClick={() => setShowQr(true)}
-                                title="QR-Code anzeigen"
+                                className={mode === 'passphrase' ? 'active' : ''}
+                                onClick={() => setMode('passphrase')}
                             >
-                                <QrIcon size={20} />
+                                Passphrase
                             </button>
                         </div>
-                    </div>
+
+                        {mode === 'password' ? (
+                            <>
+                                <div className="control-group">
+                                    <div className="switch-item">
+                                        <span className="switch-label">Großbuchstaben</span>
+                                        <label className="switch">
+                                            <input type="checkbox" checked={includeUppercase} onChange={e => setIncludeUppercase(e.target.checked)} />
+                                            <span className="slider-toggle"></span>
+                                        </label>
+                                    </div>
+
+                                    <div className="switch-item">
+                                        <span className="switch-label">Zahlen</span>
+                                        <label className="switch">
+                                            <input type="checkbox" checked={includeNumbers} onChange={e => setIncludeNumbers(e.target.checked)} />
+                                            <span className="slider-toggle"></span>
+                                        </label>
+                                    </div>
+
+                                    <div className="switch-item">
+                                        <span className="switch-label">Sonderzeichen</span>
+                                        <label className="switch">
+                                            <input type="checkbox" checked={includeSymbols} onChange={e => setIncludeSymbols(e.target.checked)} />
+                                            <span className="slider-toggle"></span>
+                                        </label>
+                                    </div>
+
+                                    <div className="switch-item">
+                                        <span className="switch-label">Keine Verwechslung</span>
+                                        <label className="switch">
+                                            <input type="checkbox" checked={excludeConfusing} onChange={e => setExcludeConfusing(e.target.checked)} />
+                                            <span className="slider-toggle"></span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div className="slider-container" style={{ marginTop: '20px' }}>
+                                    <div className="slider-info">
+                                        <span className="input-label">Länge</span>
+                                        <span className="slider-value-display">{length}</span>
+                                    </div>
+                                    <input
+                                        type="range"
+                                        min="8"
+                                        max="64"
+                                        value={length}
+                                        onChange={e => setLength(parseInt(e.target.value))}
+                                    />
+                                </div>
+                            </>
+                        ) : (
+                            <div className="control-group">
+                                <div className="input-group">
+                                    <span className="input-label">Anzahl der Wörter</span>
+                                    <div className="slider-container">
+                                        <input
+                                            type="range"
+                                            min="3"
+                                            max="12"
+                                            value={wordCount}
+                                            onChange={e => setWordCount(parseInt(e.target.value))}
+                                        />
+                                        <span className="slider-value-display">{wordCount}</span>
+                                    </div>
+                                </div>
+
+                                <div className="input-group">
+                                    <span className="input-label">Trennzeichen</span>
+                                    <input
+                                        type="text"
+                                        className="text-input"
+                                        value={separator}
+                                        onChange={e => setSeparator(e.target.value)}
+                                        placeholder="-"
+                                        maxLength={5}
+                                    />
+                                </div>
+                            </div>
+                        )}
+                    </aside>
+
+                    <section className="result-card">
+                        <div className="result-display">
+                            <div className="password-text">{password || '...'}</div>
+                        </div>
+
+                        <div className="strength-container" style={{ width: '100%', maxWidth: '400px' }}>
+                            <div className="strength-label">
+                                <span>Entropie-Stärke</span>
+                                <span>{strength.label}</span>
+                            </div>
+                            <div className="strength-meter">
+                                {[1, 2, 3, 4].map(s => (
+                                    <div
+                                        key={s}
+                                        className={`strength-segment ${strength.score >= s ? 'active' : ''} ${strength.score <= 1 ? 'low' :
+                                            strength.score <= 2 ? 'medium' : 'high'
+                                            }`}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="action-buttons" style={{ width: '100%', maxWidth: '400px' }}>
+                            <button className="primary-btn" onClick={generatePassword}>
+                                <RefreshCw size={20} />
+                                Generieren
+                            </button>
+                            <div style={{ display: 'flex', gap: '12px' }}>
+                                <button
+                                    className={`secondary-btn ${copied ? 'success' : ''}`}
+                                    onClick={handleCopy}
+                                    title="Kopieren"
+                                    style={{ width: '56px', height: '56px' }}
+                                >
+                                    {copied ? <Check size={24} /> : <Copy size={24} />}
+                                </button>
+                                <button
+                                    className="secondary-btn"
+                                    onClick={() => setShowQr(true)}
+                                    title="QR-Code anzeigen"
+                                    style={{ width: '56px', height: '56px' }}
+                                >
+                                    <QrIcon size={24} />
+                                </button>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </main>
 
             {showQr && (
                 <div className="qr-overlay" onClick={() => setShowQr(false)}>
                     <div className="qr-modal" onClick={e => e.stopPropagation()}>
-                        <h2 style={{ margin: 0, fontSize: '1.2rem' }}>QR-Code</h2>
+                        <div className="section-header" style={{ marginBottom: '24px' }}>
+                            <QrIcon size={20} />
+                            Zentrierter QR-Code (Offline)
+                        </div>
                         <div className="qr-canvas-container">
                             <canvas ref={qrCanvasRef}></canvas>
                         </div>
                         <div className="qr-actions">
-                            <button className="qr-close-btn" onClick={() => setShowQr(false)}>
+                            <button className="secondary-btn" onClick={() => setShowQr(false)} style={{ width: '100%' }}>
                                 Schließen
                             </button>
                         </div>
@@ -367,7 +369,7 @@ const App: React.FC = () => {
 
             <footer className="version-indicator">
                 <a href="https://github.com/FlyingT/sicher/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">
-                    v1.7.0 von TK
+                    v1.8.0 von TK
                 </a>
             </footer>
         </div>
