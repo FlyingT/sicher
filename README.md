@@ -3,10 +3,10 @@
 Ein einfacher, moderner und Docker-optimierter Kennwort und Passphrasen Generator, der Wert auf Klarheit und Sicherheit legt. 
 Vibe-Coded mit Google Antigravity. Gedacht für die Bereitstellung im Intranet, nicht für das Internet.
 
-![](https://github.com/FlyingT/sicher/blob/main/1-Dashboard.png)
+![](https://github.com/FlyingT/sicher/blob/main/1-Kennwort.png)
 
 
-![](https://github.com/FlyingT/sicher/blob/main/2-Dashboard.png)
+![](https://github.com/FlyingT/sicher/blob/main/2-Passphrase.png)
 
 ## Features
 
