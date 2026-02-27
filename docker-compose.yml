@@ -3,5 +3,5 @@ services:
     container_name: sicher
     image: ghcr.io/flyingt/sicher:latest
     ports:
-      - "8080:80"
+      - "8080:8080"
     restart: unless-stopped

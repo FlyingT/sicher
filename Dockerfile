@@ -12,21 +12,18 @@ RUN npm run build
 # Production stage
 FROM nginx:alpine
 
-# Run as non-root user
-RUN chown -R nginx:nginx /usr/share/nginx/html && \
-    chown -R nginx:nginx /var/cache/nginx && \
+# Copy nginx config and built files with correct ownership
+COPY --chown=nginx:nginx nginx.conf /etc/nginx/conf.d/default.conf
+COPY --chown=nginx:nginx --from=build /app/dist /usr/share/nginx/html
+
+# Ensure nginx runtime directories are writable by non-root user
+RUN chown -R nginx:nginx /var/cache/nginx && \
     chown -R nginx:nginx /var/log/nginx && \
     touch /var/run/nginx.pid && \
-    chown -R nginx:nginx /var/run/nginx.pid
-
-# Copy nginx config
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Copy the built files from the build stage
-COPY --from=build /app/dist /usr/share/nginx/html
+    chown nginx:nginx /var/run/nginx.pid
 
 USER nginx
 
-EXPOSE 80
+EXPOSE 8080
 
 CMD ["nginx", "-g", "daemon off;"]

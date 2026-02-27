@@ -19,8 +19,6 @@ Vibe-Coded mit Google Antigravity. Gedacht für die Bereitstellung im Intranet, 
 - **Kryptografisch sicher**: Nutzt `window.crypto.getRandomValues()` mit Rejection Sampling (kein Modulo-Bias).
 - **Docker-optimiert**: Gehärteter Nginx-Container (Non-Root, Security-Header, SPA-Routing).
 
-### Aktuelle Version: v1.9.0 (27. Februar 2026)
-
 ## Deployment
 
 Um den Generator lokal mit Docker zu starten, kann folgende `docker-compose.yml` verwendet werden:
@@ -31,7 +29,7 @@ services:
     container_name: sicher
     image: ghcr.io/flyingt/sicher:latest
     ports:
-      - "8080:80"
+      - "8080:8080"
     restart: unless-stopped
 ```
 
