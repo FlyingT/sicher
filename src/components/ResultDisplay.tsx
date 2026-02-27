@@ -21,7 +21,7 @@ const ResultDisplay: React.FC<ResultDisplayProps> = ({
 }) => (
     <section className="result-card">
         <div className="result-display">
-            <div className="password-text">{password || '...'}</div>
+            <div className="password-text" aria-live="polite">{password || '...'}</div>
         </div>
 
         <div className="strength-container">

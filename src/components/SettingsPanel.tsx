@@ -31,16 +31,18 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
             Modus &amp; Einstellungen
         </div>
 
-        <div className="mode-toggle mode-toggle-spacing">
+        <div className="mode-toggle mode-toggle-spacing" role="group" aria-label="Modus wählen">
             <button
                 className={mode === 'password' ? 'active' : ''}
                 onClick={() => onUpdate('mode', 'password')}
+                aria-pressed={mode === 'password'}
             >
                 Kennwort
             </button>
             <button
                 className={mode === 'passphrase' ? 'active' : ''}
                 onClick={() => onUpdate('mode', 'passphrase')}
+                aria-pressed={mode === 'passphrase'}
             >
                 Passphrase
             </button>
@@ -52,7 +54,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
                     <div className="switch-item">
                         <span className="switch-label">Großbuchstaben</span>
                         <label className="switch">
-                            <input type="checkbox" checked={includeUppercase} onChange={e => onUpdate('includeUppercase', e.target.checked)} />
+                            <input type="checkbox" checked={includeUppercase} onChange={e => onUpdate('includeUppercase', e.target.checked)} aria-label="Großbuchstaben einschließen" />
                             <span className="slider-toggle"></span>
                         </label>
                     </div>
@@ -60,7 +62,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
                     <div className="switch-item">
                         <span className="switch-label">Zahlen</span>
                         <label className="switch">
-                            <input type="checkbox" checked={includeNumbers} onChange={e => onUpdate('includeNumbers', e.target.checked)} />
+                            <input type="checkbox" checked={includeNumbers} onChange={e => onUpdate('includeNumbers', e.target.checked)} aria-label="Zahlen einschließen" />
                             <span className="slider-toggle"></span>
                         </label>
                     </div>
@@ -68,7 +70,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
                     <div className="switch-item">
                         <span className="switch-label">Sonderzeichen</span>
                         <label className="switch">
-                            <input type="checkbox" checked={includeSymbols} onChange={e => onUpdate('includeSymbols', e.target.checked)} />
+                            <input type="checkbox" checked={includeSymbols} onChange={e => onUpdate('includeSymbols', e.target.checked)} aria-label="Sonderzeichen einschließen" />
                             <span className="slider-toggle"></span>
                         </label>
                     </div>
@@ -76,7 +78,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
                     <div className="switch-item">
                         <span className="switch-label">Keine Verwechslung</span>
                         <label className="switch">
-                            <input type="checkbox" checked={excludeConfusing} onChange={e => onUpdate('excludeConfusing', e.target.checked)} />
+                            <input type="checkbox" checked={excludeConfusing} onChange={e => onUpdate('excludeConfusing', e.target.checked)} aria-label="Verwechselbare Zeichen ausschließen" />
                             <span className="slider-toggle"></span>
                         </label>
                     </div>

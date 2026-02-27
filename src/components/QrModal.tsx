@@ -42,13 +42,13 @@ const QrModal: React.FC<QrModalProps> = ({ password, onClose }) => {
     }, [password]);
 
     return (
-        <div className="qr-overlay" onClick={onClose}>
+        <div className="qr-overlay" onClick={onClose} role="dialog" aria-modal="true" aria-label="QR-Code Ansicht">
             <div className="qr-modal" onClick={e => e.stopPropagation()}>
                 <div className="qr-canvas-container">
                     <canvas ref={canvasRef}></canvas>
                 </div>
                 <div className="qr-actions">
-                    <button className="secondary-btn qr-close-action" onClick={onClose}>
+                    <button className="secondary-btn qr-close-action" onClick={onClose} autoFocus>
                         Schließen
                     </button>
                 </div>

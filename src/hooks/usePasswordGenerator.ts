@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { wordlist } from '../words';
 
 /** Returns an unbiased random index in [0, max) using rejection sampling. */
@@ -49,35 +49,6 @@ export function usePasswordGenerator() {
         setOptions(prev => ({ ...prev, [key]: value }));
     };
 
-    const calculateStrength = useCallback(() => {
-        if (!password) {
-            setStrength({ score: 0, label: 'Sehr schwach', bits: 0 });
-            return;
-        }
-
-        let entropy = 0;
-        if (options.mode === 'passphrase') {
-            entropy = options.wordCount * Math.log2(wordlist.length);
-        } else {
-            let poolSize = 26;
-            if (options.includeUppercase) poolSize += 26;
-            if (options.includeNumbers) poolSize += 10;
-            if (options.includeSymbols) poolSize += 30;
-            if (options.excludeConfusing) poolSize -= 10;
-            entropy = options.length * Math.log2(poolSize);
-        }
-
-        const bits = Math.round(entropy);
-        if (entropy < 40) setStrength({ score: 1, label: 'Schwach', bits });
-        else if (entropy < 60) setStrength({ score: 2, label: 'Mittel', bits });
-        else if (entropy < 80) setStrength({ score: 3, label: 'Sicher', bits });
-        else setStrength({ score: 4, label: 'Sehr sicher', bits });
-    }, [password, options]);
-
-    useEffect(() => {
-        calculateStrength();
-    }, [calculateStrength]);
-
     const buildCharset = useCallback(() => {
         let charset = 'abcdefghijklmnopqrstuvwxyz';
         const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -104,25 +75,62 @@ export function usePasswordGenerator() {
         return ch === 'w' || ch === 'm';
     };
 
+    const calculateStrength = useCallback(() => {
+        if (!password) {
+            setStrength({ score: 0, label: 'Sehr schwach', bits: 0 });
+            return;
+        }
+
+        let entropy = 0;
+        if (options.mode === 'passphrase') {
+            entropy = options.wordCount * Math.log2(wordlist.length);
+        } else {
+            const charset = buildCharset();
+            // Also exclude chars rejected by isConfusingChar during generation
+            const effectivePool = options.excludeConfusing
+                ? charset.replace(/[wm]/g, '').length
+                : charset.length;
+            entropy = options.length * Math.log2(effectivePool || 1);
+        }
+
+        const bits = Math.round(entropy);
+        if (entropy < 40) setStrength({ score: 1, label: 'Schwach', bits });
+        else if (entropy < 60) setStrength({ score: 2, label: 'Mittel', bits });
+        else if (entropy < 80) setStrength({ score: 3, label: 'Sicher', bits });
+        else setStrength({ score: 4, label: 'Sehr sicher', bits });
+    }, [password, options, buildCharset]);
+
+    useEffect(() => {
+        calculateStrength();
+    }, [calculateStrength]);
+
     const generatePassword = useCallback(() => {
         if (options.mode === 'passphrase') {
             const words = Array.from({ length: options.wordCount }, () =>
                 wordlist[randomIndex(wordlist.length)]
             );
-            const actualSeparator = options.separator.length > 1 ? options.separator.trim() : options.separator;
-            setPassword(words.join(actualSeparator).trim());
+            const actualSeparator = options.separator || '-';
+            setPassword(words.join(actualSeparator.length > 1 ? actualSeparator.trim() : actualSeparator).trim());
             return;
         }
 
         const charset = buildCharset();
+        if (charset.length === 0) {
+            setPassword('');
+            return;
+        }
+
+        const MAX_REROLLS = 1000;
         let generated = '';
 
         for (let i = 0; i < options.length; i++) {
             let nextChar: string;
+            let attempts = 0;
 
             // Use rejection-sampled random index; re-roll for confusing chars
             do {
                 nextChar = charset[randomIndex(charset.length)];
+                if (++attempts > MAX_REROLLS) break;
             } while (
                 options.excludeConfusing && (
                     isConfusingChar(nextChar) ||
@@ -140,13 +148,20 @@ export function usePasswordGenerator() {
         generatePassword();
     }, [generatePassword]);
 
+    const copyTimerRef = useRef<number>();
+
     const handleCopy = async () => {
         if (!password) return;
 
+        const markCopied = () => {
+            setCopied(true);
+            clearTimeout(copyTimerRef.current);
+            copyTimerRef.current = window.setTimeout(() => setCopied(false), 2000);
+        };
+
         try {
             await navigator.clipboard.writeText(password);
-            setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
+            markCopied();
         } catch {
             try {
                 const textArea = document.createElement("textarea");
@@ -161,8 +176,7 @@ export function usePasswordGenerator() {
                 document.body.removeChild(textArea);
 
                 if (successful) {
-                    setCopied(true);
-                    setTimeout(() => setCopied(false), 2000);
+                    markCopied();
                 }
             } catch (fallbackErr) {
                 console.error('Fallback copy failed', fallbackErr);
