@@ -27,6 +27,7 @@ export interface PasswordOptions {
 export interface StrengthInfo {
     score: number;
     label: string;
+    bits: number;
 }
 
 export function usePasswordGenerator() {
@@ -42,7 +43,7 @@ export function usePasswordGenerator() {
     });
     const [password, setPassword] = useState('');
     const [copied, setCopied] = useState(false);
-    const [strength, setStrength] = useState<StrengthInfo>({ score: 0, label: 'Sehr schwach' });
+    const [strength, setStrength] = useState<StrengthInfo>({ score: 0, label: 'Sehr schwach', bits: 0 });
 
     const updateOption = <K extends keyof PasswordOptions>(key: K, value: PasswordOptions[K]) => {
         setOptions(prev => ({ ...prev, [key]: value }));
@@ -50,7 +51,7 @@ export function usePasswordGenerator() {
 
     const calculateStrength = useCallback(() => {
         if (!password) {
-            setStrength({ score: 0, label: 'Sehr schwach' });
+            setStrength({ score: 0, label: 'Sehr schwach', bits: 0 });
             return;
         }
 
@@ -66,10 +67,11 @@ export function usePasswordGenerator() {
             entropy = options.length * Math.log2(poolSize);
         }
 
-        if (entropy < 40) setStrength({ score: 1, label: 'Schwach' });
-        else if (entropy < 60) setStrength({ score: 2, label: 'Mittel' });
-        else if (entropy < 80) setStrength({ score: 3, label: 'Sicher' });
-        else setStrength({ score: 4, label: 'Sehr sicher' });
+        const bits = Math.round(entropy);
+        if (entropy < 40) setStrength({ score: 1, label: 'Schwach', bits });
+        else if (entropy < 60) setStrength({ score: 2, label: 'Mittel', bits });
+        else if (entropy < 80) setStrength({ score: 3, label: 'Sicher', bits });
+        else setStrength({ score: 4, label: 'Sehr sicher', bits });
     }, [password, options]);
 
     useEffect(() => {

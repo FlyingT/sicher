@@ -27,7 +27,7 @@ const ResultDisplay: React.FC<ResultDisplayProps> = ({
         <div className="strength-container">
             <div className="strength-label">
                 <span>Entropie-Stärke</span>
-                <span>{strength.label}</span>
+                <span>{strength.label}{strength.bits > 0 ? ` (${strength.bits} Bit)` : ''}</span>
             </div>
             <div className="strength-meter">
                 {[1, 2, 3, 4].map(s => (

@@ -10,6 +10,14 @@ const QrModal: React.FC<QrModalProps> = ({ password, onClose }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') onClose();
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [onClose]);
+
+    useEffect(() => {
         if (canvasRef.current && password) {
             const qr = qrcodegen.QrCode.encodeText(password, qrcodegen.QrCode.Ecc.MEDIUM);
             const canvas = canvasRef.current;

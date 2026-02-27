@@ -1,3 +1,12 @@
+## [1.9.1] - 2026-02-27
+### Behoben
+- **Passphrasen-Umbruch**: Zeilenumbruch erfolgt nur noch am Trennzeichen, nicht mehr mitten im Wort (`overflow-wrap: break-word` statt `word-break: break-all`).
+- **Non-Root Container**: Nginx lauscht auf Port 8080 (unprivilegiert), `COPY --chown=nginx:nginx` für korrekte Dateirechte, Reihenfolge im Dockerfile korrigiert.
+
+### Hinzugefügt
+- **Entropie in Bit**: Stärke-Anzeige zeigt nun den konkreten Entropie-Wert in Bit (z.B. „Sehr sicher (103 Bit)").
+- **Escape-Taste**: QR-Code-Popup lässt sich mit der Escape-Taste schließen.
+
 ## [1.9.0] - 2026-02-27
 ### Architektur
 - **Komponentenstruktur**: `App.tsx` von 390 auf ~55 Zeilen reduziert und in `Navbar`, `SettingsPanel`, `ResultDisplay` und `QrModal` aufgeteilt.
