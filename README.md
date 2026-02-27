@@ -1,6 +1,6 @@
 # Sicher?
 
-Ein einfacher, moderner und Docker-optimierter Kennwort und Passphrasen Generator, der Wert auf Klarheit und Sicherheit legt. 
+Ein einfacher, moderner und Docker-optimierter Kennwort- und Passphrasen-Generator, der Wert auf Klarheit und Sicherheit legt.
 Vibe-Coded mit Google Antigravity. Gedacht für die Bereitstellung im Intranet, nicht für das Internet.
 
 ![](https://github.com/FlyingT/sicher/blob/main/1-Kennwort.png)
@@ -10,22 +10,22 @@ Vibe-Coded mit Google Antigravity. Gedacht für die Bereitstellung im Intranet, 
 
 ## Features
 
-- **Major Redesign**: Modernes Top-Navbar-Layout für eine bessere Übersicht.
-- **Navbar Tagline**: Descriptive tagline added for better context.
-- **Brand Consistency**: Design-Harmonisierung mit den Projekten "Belegt" und "Mosaik".
-- **Shaded Footer**: New shaded footer bar for versioning.
-- **Improved UX**: Shaded mode toggles and unified slider designs.
-- **Offline QR-Code**: Cleaned up popup for maximum simplicity.
+- **Kennwort-Generator**: Zufällige Passwörter mit konfigurierbarer Länge (8–64 Zeichen), Großbuchstaben, Zahlen und Sonderzeichen.
+- **Passphrasen-Generator**: Sichere Passphrasen aus einer deutschen Wörterliste (7.700+ Begriffe), mit einstellbarer Wortanzahl und Trennzeichen.
+- **Verwechslungsschutz**: Optionaler Ausschluss ähnlich aussehender Zeichen (`0/O`, `1/l/I`, `vv/w`, `rn/m` etc.).
+- **Entropie-Stärke**: Visuelle Anzeige der Passwortstärke basierend auf Entropie-Berechnung.
+- **Offline QR-Code**: Generierung eines QR-Codes für das erstellte Kennwort – komplett lokal, ohne externe Dienste.
+- **Dark/Light Mode**: Automatische Erkennung der Systemeinstellungen mit manuellem Toggle.
+- **Kryptografisch sicher**: Nutzt `window.crypto.getRandomValues()` mit Rejection Sampling (kein Modulo-Bias).
+- **Docker-optimiert**: Gehärteter Nginx-Container (Non-Root, Security-Header, SPA-Routing).
 
-### Aktuelle Version: v1.8.1 (01. Februar 2026)
+### Aktuelle Version: v1.9.0 (27. Februar 2026)
 
 ## Deployment
 
 Um den Generator lokal mit Docker zu starten, kann folgende `docker-compose.yml` verwendet werden:
 
 ```yaml
-version: '3.8'
-
 services:
   sicher:
     container_name: sicher
@@ -44,4 +44,4 @@ Das Tool ist anschließend unter `http://localhost:8080` (Standard-Port) erreich
 
 - **Frontend**: React 18, TypeScript, Vite
 - **Icon-Set**: Lucide React
-- **Container**: Docker & Nginx (Alpine)
+- **Container**: Docker & Nginx (Alpine, Non-Root)

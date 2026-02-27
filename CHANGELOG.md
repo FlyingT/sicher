@@ -1,3 +1,23 @@
+## [1.9.0] - 2026-02-27
+### Architektur
+- **Komponentenstruktur**: `App.tsx` von 390 auf ~55 Zeilen reduziert und in `Navbar`, `SettingsPanel`, `ResultDisplay` und `QrModal` aufgeteilt.
+- **Custom Hooks**: Logik für Theme (`useTheme`) und Passwort-Generierung (`usePasswordGenerator`) in wiederverwendbare Hooks extrahiert.
+- **CSS Cleanup**: Toten Code entfernt (`.sidebar`, `.app-container`, `.theme-toggle` etc.), Inline-Styles in CSS-Klassen überführt, Responsive Breakpoint korrigiert.
+
+### Sicherheit & Kryptografie
+- **Rejection Sampling**: Modulo-Bias in der Zufallsgenerierung behoben – `randomIndex()` verwirft Werte oberhalb des größten Vielfachen von `max` für gleichverteilte Ergebnisse.
+- **Verwechslungsschutz**: Robustere Logik mit `while`-Schleife statt einfachem Offset, um garantiert keine verwechselbaren Zeichen auszugeben.
+
+### Infrastruktur
+- **Dockerfile**: `npm ci` statt `npm install` für reproduzierbare Builds, Nginx als Non-Root-User.
+- **nginx.conf**: Security-Header (`X-Content-Type-Options`, `X-Frame-Options`, `X-XSS-Protection`, `Referrer-Policy`, `Permissions-Policy`), SPA-Routing, Asset-Caching.
+- **docker-compose.yml**: Veraltete `version`-Angabe entfernt.
+- **Dependencies**: Alle Versionen exakt gepinnt (ohne `^`-Ranges).
+
+### SEO & Dokumentation
+- **Meta-Tags**: `description`, `theme-color` und Open Graph Tags in `index.html` ergänzt.
+- **README**: Stabile Feature-Liste statt Changelog-Einträge, Sprache vereinheitlicht (Deutsch).
+
 ## [1.8.1] - 2026-02-01
 ### Fixed
 - **Navbar Tagline**: Beschreibung "Einfacher, lokaler Kennwort- und Passphrasen-Generator" hinzugefügt.
